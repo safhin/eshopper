@@ -93,8 +93,13 @@
                                         <div class="overlay-content">
                                             <h2>TK-{{ $product->price }}</h2>
                                             <p><a href="{{ route('shop.show',['slug' => $product->slug ]) }}">{{ $product->title }}</a></p>
-                                            <a href="#" class="btn btn-default add-to-cart"><i
-                                                    class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            <form action="{{ route('cart.store') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $product->id }}">
+                                                <input type="hidden" name="title" value="{{ $product->title }}">
+                                                <input type="hidden" name="price" value="{{ $product->price }}">
+                                                <button class="btn btn-default add-to-cart" type="submit"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -435,8 +440,13 @@
                                                     <img src="{{ asset("frontend/images/home/$product->slug.jpg") }}" alt="" />
                                                     <h2>TK-{{ $product->title }}</h2>
                                                     <p>{{ $product->title }}</p>
-                                                    <a href="#" class="btn btn-default add-to-cart"><i
-                                                            class="fa fa-shopping-cart"></i>Add to cart</a>
+                                                    <form action="{{ route('cart.store') }}" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="id" value="{{ $product->id }}">
+                                                        <input type="hidden" name="title" value="{{ $product->title }}">
+                                                        <input type="hidden" name="price" value="{{ $product->price }}">
+                                                        <button class="btn btn-default add-to-cart" type="submit"><i class="fa fa-shopping-cart"></i>Add to cart</a></button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
