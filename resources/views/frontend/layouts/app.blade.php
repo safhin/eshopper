@@ -18,11 +18,13 @@
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
-	<link rel="shortcut icon" href="{{ asset('frontend/images/ico/favicon.ico') }}">
+	{{-- <link rel="shortcut icon" href="{{ asset('frontend/images/ico/favicon.ico') }}"> --}}
 	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('frontend/images/ico/apple-touch-icon-144-precomposed.png') }}">
 	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('frontend/images/ico/apple-touch-icon-114-precomposed.png') }}">
 	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('frontend/images/ico/apple-touch-icon-72-precomposed.png') }}">
 	<link rel="apple-touch-icon-precomposed" href="{{ asset('frontend/images/ico/apple-touch-icon-57-precomposed.png') }}">
+
+	@yield('extra-css')
 </head>
 <!--/head-->
 
@@ -320,6 +322,8 @@
 	<script src="{{ asset('frontend/js/price-range.js')}}"></script>
 	<script src="{{ asset('frontend/js/jquery.prettyPhoto.js')}}"></script>
 	<script src="{{ asset('frontend/js/main.js')}}"></script>
+
+	@yield('extra-js')
 </body>
 
 </html>
