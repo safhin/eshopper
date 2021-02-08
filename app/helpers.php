@@ -1,6 +1,6 @@
 <?php
 
-function presentPrice($price)
+function setActiveCategory($cat, $output = 'active')
 {
-    return money_format('%i', $price / 100);
+    return request()->category == $cat ? $output : '';
 }

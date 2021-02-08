@@ -83,7 +83,7 @@
                             <div class="product-image-wrapper">
                                 <div class="single-products">
                                     <div class="productinfo text-center">
-                                        <img src="{{ asset("frontend/images/home/$product->slug.jpg") }}" alt="" />
+                                        <img src="{{ asset("frontend/images/shop/$product->slug.jpg") }}" alt="" />
                                         <h2>{{ $product->title }}</h2>
                                         <p>TK-{{ $product->price }}</p>
                                         <a href="#" class="btn btn-default add-to-cart"><i
@@ -437,7 +437,7 @@
                                         <div class="product-image-wrapper">
                                             <div class="single-products">
                                                 <div class="productinfo text-center">
-                                                    <img src="{{ asset("frontend/images/home/$product->slug.jpg") }}" alt="" />
+                                                    <img src="{{ asset("frontend/images/shop/$product->slug.jpg") }}" alt="" />
                                                     <h2>TK-{{ $product->title }}</h2>
                                                     <p>{{ $product->title }}</p>
                                                     <form action="{{ route('cart.store') }}" method="POST">

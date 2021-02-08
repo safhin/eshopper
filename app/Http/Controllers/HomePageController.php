@@ -9,7 +9,7 @@ class HomePageController extends Controller
 {
     public function index()
     {
-        $products = Product::inRandomOrder()->take(8)->get();
+        $products = Product::where('featured', true)->inRandomOrder()->take(9)->get();
         $recommendedItems = Product::inRandomOrder()->take(3)->get();
         return view('frontend.home',[
             'products' => $products,

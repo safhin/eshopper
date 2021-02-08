@@ -54,17 +54,15 @@
                                     </td>
                                     <td class="cart_quantity">
                                         <div class="cart_quantity_button">
-                                            <select>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
+                                            <select class="quantity" data-id="{{ $item->rowId }}">
+                                                @for($i = 1; $i < 5 + 1;$i++)
+                                                    <option {{ $item->qty == $i ? 'selected' : '' }}>{{ $i }}</option>  
+                                                @endfor
                                             </select>
                                         </div>
                                     </td>
                                     <td class="cart_total">
-                                        <p class="cart_total_price">TK-{{ $item->model->price}}</p>
+                                        <p class="cart_total_price">TK-{{ $items->subtotal() }}</p>
                                     </td>
                                     <td class="cart_delete">
                                         <form action="{{ route('cart.destroy',$item->rowId ) }}" method="POST">
@@ -107,4 +105,28 @@
             </div>
 		</div>
 	</section>
+@endsection
+
+@section('extra-js')
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        (function(){
+            const classname = document.querySelectorAll('.quantity')
+
+            Array.from(classname).forEach(function(element){
+                element.addEventListener('change', function(){
+                    const id = element.getAttribute('data-id')
+                    axios.patch(`/cart/${id}`, {
+                        quantity: this.value,
+                    })
+                    .then(function (response) {
+                        window.location.href = '{{ route('cart.index') }}'
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                })
+            })
+        })();
+    </script>
 @endsection
