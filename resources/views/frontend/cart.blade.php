@@ -62,7 +62,7 @@
                                         </div>
                                     </td>
                                     <td class="cart_total">
-                                        <p class="cart_total_price">TK-{{ $items->subtotal() }}</p>
+                                        <p class="cart_total_price">TK-{{ $item->subtotal() }}</p>
                                     </td>
                                     <td class="cart_delete">
                                         <form action="{{ route('cart.destroy',$item->rowId ) }}" method="POST">

@@ -31,10 +31,6 @@
                 </div>
             @endif
 
-            <div class="register-req">
-                <p>Please use Register And Checkout to easily get access to your order history, or use Checkout as Guest</p>
-            </div><!--/register-req-->
-
             <div class="shopper-informations">
                 <div class="row">
                     <div class="col-sm-5">
@@ -60,7 +56,7 @@
                                     <input class="form-control" name="city" type="text" id="city" placeholder="City" value="{{ old('city') }}">
                                 </div>
                                 <div class="form-group">  
-                                    <input class="form-control" type="phone" placeholder="Mobile Phone" value="{{ old('phone') }}">
+                                    <input class="form-control" type="phone" placeholder="Mobile Phone" id="phone" name="phone" value="{{ old('phone') }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="name_on_card">Name on Card</label>
@@ -109,9 +105,7 @@
                                             </td>
                                             <td class="cart_quantity">
                                                 <div class="cart_quantity_button">
-                                                    <a class="cart_quantity_up" href=""> + </a>
                                                     <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                                                    <a class="cart_quantity_down" href=""> - </a>
                                                 </div>
                                             </td>
                                             <td class="cart_total">
@@ -122,6 +116,61 @@
                                 </tbody>
                             </table>
                         </div>
+                        <!-- End cart items -->
+                        <div class="d-flex justify-content-between">
+                            <div style="display: inline-block;">
+                                <p>Subtotal</p>
+                                @if (!session()->has('cupon'))
+                                    <p>Tax</p>
+                                    <p>Total</p>
+                                @endif
+                                @if (session()->has('cupon'))
+                                    <div style="display: inline-flex;">
+                                        <p style="display: flex;">Discount({{ session()->get('cupon')['name'] }}) :</p>
+                                        <p>
+                                            <form action="{{ route('cupon.destroy') }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit">Remove</button>
+                                            </form>
+                                        </p>
+                                    </div>
+                                    <hr>
+                                @endif
+                                @if (session()->has('cupon'))
+                                <p>New Subtotal</p>
+                                <p>Tax</p>
+                                <strong>New Total</strong>
+                                @endif
+                            </div>
+                            <div style="float: right;">
+                                <p>{{ Cart::subtotal() }}</p>
+                                @if (!session()->has('cupon'))
+                                    <p>{{ Cart::tax() }}</p>
+                                    <p>{{ Cart::total() }}</p>
+                                @endif
+                                @if (session()->has('cupon'))
+                                    <p>{{ $discount }}</p>
+                                    <hr>
+                                    <p>{{ $newSubtotal }}</p>
+                                    <p>{{ $newTax }}</p>
+                                    <strong>{{ $newTotal}}</strong>
+                                @endif
+                            </div>
+                        </div>
+                        <hr>
+                        @if (!session()->has('cupon'))
+                        <div>
+                            <h4>Have a code?</h4>
+                            <form action="{{ route('cupon.store') }}" method="POST">
+                                @csrf
+                                <div class="form-group d-flex" style="display: flex;">
+                                    <input type="text" class="form-control" name="cuppon_code" id="cuppon_code" autocomplete="off">
+                                    <button type="submit" class="btn btn-success px-4 ml-1">Apply</button>
+                                </div>
+                            </form>
+                        </div>
+                        @endif
                     </div>					
                 </div>
             </div>
