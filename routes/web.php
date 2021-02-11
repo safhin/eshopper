@@ -7,6 +7,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\CuponController;
 use Illuminate\Support\Facades\Route;
+use TCG\Voyager\Facades\Voyager;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomePageController::class, 'index'])->name('home');
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
-Route::get('/product/{slug}', [ShopController::class, 'show'])->name('shop.show');
+Route::get('/shop/{slug}', [ShopController::class, 'show'])->name('shop.show');
 
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
@@ -35,3 +36,7 @@ Route::delete('/cupon', [CuponController::class, 'destroy'])->name('cupon.destro
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 Route::get('/thankyou', [ConfirmationController::class, 'index'])->name('confirmation.index');
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});

@@ -165,7 +165,7 @@
                             <form action="{{ route('cupon.store') }}" method="POST">
                                 @csrf
                                 <div class="form-group d-flex" style="display: flex;">
-                                    <input type="text" class="form-control" name="cuppon_code" id="cuppon_code" autocomplete="off">
+                                    <input type="text" class="form-control" name="cupon_code" id="cupon_code" autocomplete="off">
                                     <button type="submit" class="btn btn-success px-4 ml-1">Apply</button>
                                 </div>
                             </form>

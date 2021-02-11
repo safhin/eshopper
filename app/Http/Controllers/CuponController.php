@@ -10,7 +10,7 @@ class CuponController extends Controller
 {
     public function store(Request $request)
     {
-        $cupon = Cupon::where('code', $request->cuppon_code)->first();
+        $cupon = Cupon::where('code', $request->cupon_code)->first();
         if(!$cupon){
             return redirect()->route('checkout.index')->withErrors('Invalid cupond code. Please try again');
         }

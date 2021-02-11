@@ -12,6 +12,7 @@ class Category extends Model
         'name',
         'slug',
     ];
+    protected $table = 'category';
     public function products()
     {
         return $this->belongsToMany(Product::class);
