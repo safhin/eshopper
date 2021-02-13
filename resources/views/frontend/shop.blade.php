@@ -1,4 +1,4 @@
-@extends('frontend.layouts.app')
+@extends('frontend.layouts.root')
 
 @section('extra-css')
     <link rel="stylesheet" href="{{ asset("frontend/css/custom.css") }}">    
@@ -48,7 +48,7 @@
                             <div class="product-image-wrapper">
                                 <div class="single-products">
                                     <div class="productinfo text-center">
-                                        <img src="{{ asset("frontend/images/shop/$product->slug.jpg") }}" alt="" />
+                                        <img src="{{  productImage($product->image) }}" alt="" />
                                         <h2>TK-{{ $product->price }}</h2>
                                         <p>{{ $product->title }}</p>
                                         <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>

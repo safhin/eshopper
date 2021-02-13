@@ -45,15 +45,7 @@
 						</div>
 					</div>
 					<div class="col-sm-6">
-						<div class="social-icons pull-right">
-							<ul class="nav navbar-nav">
-								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-								<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-							</ul>
-						</div>
+						{{ menu('footer', 'frontend.partials.menus.footer') }}
 					</div>
 				</div>
 			</div>
@@ -124,20 +116,7 @@
 								<span class="icon-bar"></span>
 							</button>
 						</div>
-						<div class="mainmenu pull-left">
-							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="/" class="active">Home</a></li>
-								<li class="dropdown"><a href="{{ route('shop.index') }}">Shop</i></a></li>
-								<li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
-									<ul role="menu" class="sub-menu">
-										<li><a href="blog.html">Blog List</a></li>
-										<li><a href="blog-single.html">Blog Single</a></li>
-									</ul>
-								</li>
-								<li><a href="404.html">404</a></li>
-								<li><a href="contact-us.html">Contact</a></li>
-							</ul>
-						</div>
+						{{ menu('main','frontend.partials.main') }}
 					</div>
 					<div class="col-sm-3">
 						<div class="search_box pull-right">

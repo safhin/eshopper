@@ -1,4 +1,4 @@
-@extends('frontend.layouts.app')
+@extends('frontend.layouts.root')
 
 @section('content')
     <section id="cart_items">
@@ -43,7 +43,7 @@
                             @foreach (Cart::content() as $item)
                                 <tr>
                                     <td class="cart_product">
-                                        <a href="{{ route('shop.show',[$item->model->slug]) }}"><img src="{{ asset('frontend/images/shop/'.$item->model->slug.'.jpg') }}" alt=""></a>
+                                        <a href="{{ route('shop.show',[$item->model->slug]) }}"><img src="{{  productImage($item->model->image) }}" alt=""></a>
                                     </td>
                                     <td class="cart_description">
                                         <h4><a href="{{ route('shop.show',[$item->model->slug]) }}">{{ $item->model->title }}</a></h4>

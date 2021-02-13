@@ -1,4 +1,4 @@
-@extends('frontend.layouts.app')
+@extends('frontend.layouts.root')
 
 @section('extra-css')
     <script src="https://js.stripe.com/v3/"></script>
@@ -95,7 +95,7 @@
                                     @foreach (Cart::content() as $item)
                                         <tr>
                                             <td class="cart_product">
-                                                <a href="{{ route('shop.show',[$item->model->slug]) }}"><img src="{{ asset('frontend/images/shop/'.$item->model->slug.'.jpg') }}" alt=""></a>
+                                                <a href="{{ route('shop.show',[$item->model->slug]) }}"><img src="{{  productImage($product->image) }}" alt=""></a>
                                             </td>
                                             <td class="cart_description">
                                                 <h5><a href="{{ route('shop.show',[$item->model->slug]) }}">{{ $item->model->title }}</a></h5>

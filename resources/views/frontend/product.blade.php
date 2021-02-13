@@ -1,4 +1,4 @@
-@extends('frontend.layouts.app')
+@extends('frontend.layouts.root')
 
 @section('content')
 <section>
@@ -8,49 +8,32 @@
                 <div class="product-details"><!--product-details-->
                     <div class="col-sm-5">
                         <div class="view-product">
-                            <img src="{{ asset("frontend/images/shop/$product->slug.jpg") }}" alt="" />
-                            <h3>ZOOM</h3>
+                            <img src="{{ productImage($product->image) }}" alt="" />
                         </div>
-                        <div id="similar-product" class="carousel slide" data-ride="carousel">
-                            
-                              <!-- Wrapper for slides -->
-                                <div class="carousel-inner">
-                                    <div class="item active">
-                                      <a href=""><img src="{{ asset('frontend/images/product-details/similar1.jpg') }}" alt=""></a>
-                                      <a href=""><img src="{{ asset('frontend/images/product-details/similar2.jpg') }}" alt=""></a>
-                                      <a href=""><img src="{{ asset('frontend/images/product-details/similar3.jpg') }}" alt=""></a>
-                                    </div>
-                                    <div class="item">
-                                      <a href=""><img src="{{ asset('frontend/images/product-details/similar1.jpg') }}" alt=""></a>
-                                      <a href=""><img src="{{ asset('frontend/images/product-details/similar2.jpg') }}" alt=""></a>
-                                      <a href=""><img src="{{ asset('frontend/images/product-details/similar3.jpg') }}" alt=""></a>
-                                    </div>
-                                    <div class="item">
-                                      <a href=""><img src="{{ asset('frontend/images/product-details/similar1.jpg') }}" alt=""></a>
-                                      <a href=""><img src="{{ asset('frontend/images/product-details/similar2.jpg') }}" alt=""></a>
-                                      <a href=""><img src="{{ asset('frontend/images/product-details/similar3.jpg') }}" alt=""></a>
-                                    </div>
-                                    
-                                </div>
+                        <div class="product-section-images">
+                            <div class="product-section-thumbnail">
+                                <img src="{{ productImage($product->image) }}" alt="" />
+                            </div>
 
-                              <!-- Controls -->
-                              <a class="left item-control" href="#similar-product" data-slide="prev">
-                                <i class="fa fa-angle-left"></i>
-                              </a>
-                              <a class="right item-control" href="#similar-product" data-slide="next">
-                                <i class="fa fa-angle-right"></i>
-                              </a>
+                            @if ($product->images)
+                            @foreach (json_decode($product->images, true) as $image)
+                              <div class="product-section-thumbnail">
+                                  <a href="#">
+                                      <img src="{{ asset('storage/'.$image) }}" alt="">
+                                  </a>
+                              </div>
+                              @endforeach
+                          @endif
                         </div>
-
                     </div>
                     <div class="col-sm-7">
                         <div class="product-information"><!--/product-information-->
                             <img src="{{ asset('frontend/images/product-details/new.jpg') }}" class="newarrival" alt="" />
                             <h2>{{ $product->title }}</h2>
                             <p>Web ID: 1089772</p>
-                            <img src="{{ asset('frontend/images/product-details/rating.png') }}" alt="" />
+                            <img src="{{  asset('frontend/images/product-details/rating.png') }}" alt="" />
                             <span>
-                                <span>{{ $product->price }}</span>
+                                <span>${{ $product->price }}</span>
                                 <label>Quantity:</label>
                                 <form action="{{ route('cart.store') }}" method="POST">
                                     @csrf
