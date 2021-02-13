@@ -87,14 +87,8 @@
 						</div>
 					</div>
 					<div class="col-md-8 clearfix">
-						<div class="shop-menu clearfix pull-right">
-							<ul class="nav navbar-nav">
-								<li><a href=""><i class="fa fa-user"></i> Account</a></li>
-								<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
-								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="{{ route('cart.index') }}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
-							</ul>
+						<div class="search_box pull-right">
+							<input type="text" placeholder="Search" />
 						</div>
 					</div>
 				</div>
@@ -106,7 +100,7 @@
 			<!--header-bottom-->
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-9">
+					<div class="col-md-5">
 						<div class="navbar-header">
 							<button type="button" class="navbar-toggle" data-toggle="collapse"
 								data-target=".navbar-collapse">
@@ -118,9 +112,27 @@
 						</div>
 						{{ menu('main','frontend.partials.main') }}
 					</div>
-					<div class="col-sm-3">
-						<div class="search_box pull-right">
-							<input type="text" placeholder="Search" />
+					<div class="col-md-7">
+						<div class="shop-menu clearfix pull-right">
+							<ul class="nav navbar-nav">
+								@guest
+									<li><a href="{{ route('register') }}"><i class="fa fa-user"></i>Sign Up</a></li>
+									<li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> Login</a></li>
+								@else
+									<li>
+										<a class="dropdown-item" href="{{ route('logout') }}"
+											onclick="event.preventDefault();
+															document.getElementById('logout-form').submit();">
+											{{ __('Logout') }}
+										</a>
+		
+										<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+											@csrf
+									</li>
+									</form>
+								@endguest
+								<li><a href="{{ route('cart.index') }}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+							</ul>
 						</div>
 					</div>
 				</div>

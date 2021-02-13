@@ -38,7 +38,8 @@
                             <form action="{{ route('checkout.store') }}" method="POST" id="payment-form" required>
                                 @csrf
                                 <div class="form-group">
-                                    <input class="form-control form-control-lg" type="text" name="email" placeholder="Email*" value="{{ old('email') }}">
+                                    {{-- <input class="form-control form-control-lg" type="text" name="email" placeholder="Email*" value="{{ old('email') }}"> --}}
+                                    <input class="form-control form-control-lg" type="text" name="email" placeholder="Email*" value="{{ auth()->user()->email }}" readonly>
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" type="text" placeholder="Name *" name="name" value="{{ old('name') }}">
@@ -95,7 +96,7 @@
                                     @foreach (Cart::content() as $item)
                                         <tr>
                                             <td class="cart_product">
-                                                <a href="{{ route('shop.show',[$item->model->slug]) }}"><img src="{{  productImage($product->image) }}" alt=""></a>
+                                                <a href="{{ route('shop.show',[$item->model->slug]) }}"><img src="{{  productImage($item->model->image) }}" alt=""></a>
                                             </td>
                                             <td class="cart_description">
                                                 <h5><a href="{{ route('shop.show',[$item->model->slug]) }}">{{ $item->model->title }}</a></h5>

@@ -33,10 +33,14 @@ Route::delete('/cart/{product}', [CartController::class, 'destroy'])->name('cart
 Route::post('/cupon', [CuponController::class, 'store'])->name('cupon.store');
 Route::delete('/cupon', [CuponController::class, 'destroy'])->name('cupon.destroy');
 
-Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index')->middleware('auth');
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 Route::get('/thankyou', [ConfirmationController::class, 'index'])->name('confirmation.index');
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
