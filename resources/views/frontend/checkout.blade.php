@@ -25,7 +25,7 @@
                 <div class="alert alert-danger">
                     <ul>
                         @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
+                            <li>{!! $error !!}</li>
                         @endforeach
                     </ul>
                 </div>
@@ -38,8 +38,11 @@
                             <form action="{{ route('checkout.store') }}" method="POST" id="payment-form" required>
                                 @csrf
                                 <div class="form-group">
-                                    {{-- <input class="form-control form-control-lg" type="text" name="email" placeholder="Email*" value="{{ old('email') }}"> --}}
-                                    <input class="form-control form-control-lg" type="text" name="email" placeholder="Email*" value="{{ auth()->user()->email }}" readonly>
+                                    @if (auth()->user())
+                                        <input class="form-control form-control-lg" type="text" name="email" id="email" placeholder="Email*" value="{{ auth()->user()->email }}" readonly>
+                                    @else
+                                        <input class="form-control form-control-lg" type="text" name="email" id="email" placeholder="Email*" value="{{ old('email') }}">
+                                    @endif
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" type="text" placeholder="Name *" name="name" value="{{ old('name') }}">

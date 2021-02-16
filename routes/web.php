@@ -34,6 +34,7 @@ Route::post('/cupon', [CuponController::class, 'store'])->name('cupon.store');
 Route::delete('/cupon', [CuponController::class, 'destroy'])->name('cupon.destroy');
 
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index')->middleware('auth');
+Route::get('/guestCheckout', [CheckoutController::class, 'index'])->name('checkout.guest');
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 Route::get('/thankyou', [ConfirmationController::class, 'index'])->name('confirmation.index');
 
