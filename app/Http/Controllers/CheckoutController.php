@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CheckoutRequest;
+use App\Mail\PlacedOrder;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use Cartalyst\Stripe\Exception\CardErrorException;
@@ -10,6 +11,7 @@ use Cartalyst\Stripe\Laravel\Facades\Stripe;
 use Exception;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
@@ -50,7 +52,8 @@ class CheckoutController extends Controller
                     'discount' => collect(session()->get('coupon'))->toJson(),
                 ],
             ]);
-            $this->addToOrdersTable($request, null);
+            $order = $this->addToOrdersTable($request, null);
+            Mail::send(new PlacedOrder($order));
             //successful
             Cart::instance('default')->destroy();
             session()->forget('cupon');
@@ -90,6 +93,8 @@ class CheckoutController extends Controller
                 'quantity' => $item->qty,
             ]);
         }
+
+        return $order;
     }
 
     private function getAmounts()
