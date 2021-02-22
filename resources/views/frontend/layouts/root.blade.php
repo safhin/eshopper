@@ -15,6 +15,7 @@
 	<link href="{{ asset('frontend/css/main.css') }}" rel="stylesheet">
 	<link href="{{ asset('frontend/css/responsive.css') }}" rel="stylesheet">
 	<link href="{{ asset('frontend/css/custom.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/algolia.css') }}" rel="stylesheet">
 	<!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
@@ -25,6 +26,8 @@
 	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('frontend/images/ico/apple-touch-icon-72-precomposed.png') }}">
 	<link rel="apple-touch-icon-precomposed" href="{{ asset('frontend/images/ico/apple-touch-icon-57-precomposed.png') }}">
 
+	<script src="https://cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.min.js"></script>
 	@yield('extra-css')
 </head>
 <!--/head-->
@@ -60,35 +63,15 @@
 						<div class="logo pull-left">
 							<a href="/"><img src="{{ asset('frontend/images/home/logo.png') }}" alt="" /></a>
 						</div>
-						<div class="btn-group pull-right clearfix">
-							<div class="btn-group">
-								<button type="button" class="btn btn-default dropdown-toggle usa"
-									data-toggle="dropdown">
-									USA
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li><a href="">Canada</a></li>
-									<li><a href="">UK</a></li>
-								</ul>
-							</div>
-
-							<div class="btn-group">
-								<button type="button" class="btn btn-default dropdown-toggle usa"
-									data-toggle="dropdown">
-									DOLLAR
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li><a href="">Canadian Dollar</a></li>
-									<li><a href="">Pound</a></li>
-								</ul>
-							</div>
-						</div>
+					</div>
+					<div class="aa-input-container" id="aa-input-container">
+						<input type="search" id="search-input" class="aa-input-search aa-input" placeholder="Search with alogila..." name="search" autocomplete="off"/>
 					</div>
 					<div class="col-md-8 clearfix">
 						<div class="search_box pull-right">
-							<input type="text" placeholder="Search" />
+							<form action="{{ route('search') }}" method="GET">
+								<input type="text" name="query" id="query" placeholder="Search" />
+							</form>
 						</div>
 					</div>
 				</div>
@@ -119,6 +102,7 @@
 									<li><a href="{{ route('register') }}"><i class="fa fa-user"></i>Sign Up</a></li>
 									<li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> Login</a></li>
 								@else
+									<li><a href="{{ route('profile.edit') }}"><i class="fa fa-user"></i> Account</a></li>
 									<li>
 										<a class="dropdown-item" href="{{ route('logout') }}"
 											onclick="event.preventDefault();
@@ -305,7 +289,9 @@
 
 	</footer>
 	<!--/Footer-->
+
 	@yield('extra-js')
+	<script src="{{ asset('js/algolia.js') }}"></script>	
 	<script src="{{ asset('frontend/js/jquery.js')}}"></script>
 	<script src="{{ asset('frontend/js/bootstrap.min.js')}}"></script>
 	<script src="{{ asset('frontend/js/jquery.scrollUp.min.js')}}"></script>

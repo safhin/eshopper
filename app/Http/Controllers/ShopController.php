@@ -44,4 +44,11 @@ class ShopController extends Controller
             ]
         );
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $products = Product::search($query)->paginate(8);
+        return view('frontend.search')->with('products', $products);
+    }
 }

@@ -95,3 +95,12 @@
 .category-products .panel-default .panel-heading .panel-title.active a {
     color: #fe980f !important;
 }
+
+ul.profile_menu li {
+    margin-bottom: 10px;
+}
+
+ul.profile_menu li a {
+    color: #000;
+    font-size: 22px;
+}

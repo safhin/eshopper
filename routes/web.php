@@ -6,6 +6,8 @@ use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\CuponController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrdersController;
 use Illuminate\Support\Facades\Route;
 use TCG\Voyager\Facades\Voyager;
 
@@ -38,10 +40,18 @@ Route::get('/guestCheckout', [CheckoutController::class, 'index'])->name('checko
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 Route::get('/thankyou', [ConfirmationController::class, 'index'])->name('confirmation.index');
 
+Route::get('/search', [ShopController::class, 'search'])->name('search');
+
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
 
 Auth::routes();
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [UserController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile-update', [UserController::class, 'update'])->name('profile.update');
+    Route::get('/my-orders', [OrdersController::class, 'index'])->name('orders.index');
+});
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

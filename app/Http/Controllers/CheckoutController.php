@@ -80,7 +80,7 @@ class CheckoutController extends Controller
             'billing_discount' => $this->getAmounts()->get('discount'),
             'billing_subtotal' => $this->getAmounts()->get('newSubtotal'),
             'billing_discount_code' => $this->getAmounts()->get('code'),
-            'billing_tax' => $this->getAmounts()->get('tax'),
+            'billing_tax' => $this->getAmounts()->get('newTax'),
             'billing_total' => $this->getAmounts()->get('newTotal'),
             'error' => $error,
         ]);
