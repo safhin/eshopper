@@ -39,8 +39,16 @@ class ShopController extends Controller
     public function show($slug)
     {
         $product = Product::where('slug', $slug)->firstOrFail();
+        if($product->quantity >= setting('site.stock_threshold')){
+            $stockLevel = '<div class="label label-success">Available</div>';
+        }elseif($product->quantity <= setting('site.stock_threshold') && $product->quantity > 0){
+            $stockLevel = '<div class="label label-warning">Lwo stock</div>';
+        }else{
+            $stockLevel = '<div class="label label-danger">Not Available</div>';
+        }
         return view('frontend.product',[
-            'product' => $product
+            'product' => $product,
+            'stockLevel' => $stockLevel
             ]
         );
     }

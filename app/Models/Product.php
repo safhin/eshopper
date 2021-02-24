@@ -15,7 +15,8 @@ class Product extends Model
         'slug',
         'brand',
         'price',
-        'details'
+        'details',
+        'quantity',
     ];
     use SearchableTrait, Searchable;
 

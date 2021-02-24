@@ -6,6 +6,7 @@ use App\Http\Requests\CheckoutRequest;
 use App\Mail\PlacedOrder;
 use App\Models\Order;
 use App\Models\OrderProduct;
+use App\Models\Product;
 use Cartalyst\Stripe\Exception\CardErrorException;
 use Cartalyst\Stripe\Laravel\Facades\Stripe;
 use Exception;
@@ -36,6 +37,11 @@ class CheckoutController extends Controller
 
     public function store(CheckoutRequest $request)
     {
+        //Check one of the items is not available
+        if($this->itemAvaiabilityCheck()){
+            return back()->withErrors('Sorry! one of your requested item is no available right now'); 
+        }
+
         $contents = Cart::content()->map(function($item){
             return $item->model->slug.','.$item->qty;
         })->values()->toJson();
@@ -53,6 +59,7 @@ class CheckoutController extends Controller
                 ],
             ]);
             $order = $this->addToOrdersTable($request, null);
+            $this->decreaseProductsQuantities();
             Mail::send(new PlacedOrder($order));
             //successful
             Cart::instance('default')->destroy();
@@ -114,4 +121,23 @@ class CheckoutController extends Controller
             'newTotal' => $newTotal,
         ]);
     }
+
+    protected function decreaseProductsQuantities()
+    {
+        foreach(Cart::content() as $item){
+            $product = Product::find($item->model->id);
+            $product->update(['quantity' => $product->quantity - $item->qty]);
+        }
+    }
+    protected function itemAvaiabilityCheck()
+    {
+        foreach(Cart::content() as $item){
+            $product = Product::find($item->model->id);
+            if($product->quantity < $item->qty){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

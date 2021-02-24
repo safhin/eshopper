@@ -33,19 +33,20 @@
                             <p>Web ID: 1089772</p>
                             <img src="{{  asset('frontend/images/product-details/rating.png') }}" alt="" />
                             <span>
-                                <span>${{ $product->price }}</span>
-                                <label>Quantity:</label>
-                                <form action="{{ route('cart.store') }}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="id" value="{{ $product->id }}">
-                                    <input type="hidden" name="title" value="{{ $product->title }}">
-                                    <input type="hidden" name="price" value="{{ $product->price }}">
-                                    <button type="submit" class="btn btn-fefault cart">
-                                        <i class="fa fa-shopping-cart"></i>
-                                        Add to cart
-                                    </button>
-                                </form>
-                                
+                                <span>{{ $product->price }}</span>
+                                <label>{!! $stockLevel !!}</label>
+                                @if ($product->quantity > 0)
+                                    <form action="{{ route('cart.store') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{ $product->id }}">
+                                        <input type="hidden" name="title" value="{{ $product->title }}">
+                                        <input type="hidden" name="price" value="{{ $product->price }}">
+                                        <button type="submit" class="btn btn-fefault cart">
+                                            <i class="fa fa-shopping-cart"></i>
+                                            Add to cart
+                                        </button>
+                                    </form>
+                                @endif
                             </span>
                             <p><b>Availability:</b> In Stock</p>
                             <p><b>Condition:</b> New</p>
